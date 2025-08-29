@@ -1,0 +1,43 @@
+# 笔趣阁爬虫配置文件
+app:
+  name: "biquge-spider"
+  version: "1.0.1"
+
+# 目标网站配置
+site:
+  base_url: "https://www.a9db770f8.lol"
+  book_url_template: "/book/{book_number}/"
+  chapter_url_template: "/book/{book_number}/{chapter_num}.html"
+
+# 数据库配置
+database:
+  dsn: "root:Ll051113!@tcp(localhost:3306)/novel?charset=utf8mb4&parseTime=True&loc=Local&maxAllowedPacket=0"
+  max_open_conns: 200
+  max_idle_conns: 100
+  conn_max_lifetime_minutes: 10
+
+# HTTP客户端配置
+http:
+  timeout_seconds: 15
+  max_idle_conns: 1000
+  max_idle_conns_per_host: 100
+  max_conns_per_host: 200
+  idle_conn_timeout_seconds: 90
+  dial_timeout_seconds: 5
+  keep_alive_duration_seconds: 30
+  disable_compression: true
+  response_header_timeout_seconds: 10
+  expect_continue_timeout_seconds: 1
+  insecure_skip_verify: true
+  force_http2: true
+
+# 爬虫配置
+crawler:
+  num_workers: 100
+  job_queue_size: 1000
+  rate_limit: 100
+  rate_burst: 150
+  max_retries: 5
+  base_delay_seconds: 1
+  batch_size: 50
+  progress_ticker_seconds: 4
