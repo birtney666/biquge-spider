@@ -10,7 +10,6 @@ import (
 
 func main() {
 	hostname, _ := os.Hostname()
-	nodeID := fmt.Sprintf("%s-%d", hostname, os.Getpid())
 
 	config, err := LoadConfig("")
 	if err != nil {
@@ -18,8 +17,8 @@ func main() {
 		return
 	}
 	config = config.ToTimeConfig()
-	
-	node, err := NewCrawlerNode(nodeID, config)
+
+	node, err := NewCrawlerNode(hostname, config)
 	if err != nil {
 		fmt.Printf("创建爬虫节点失败: %v\n", err)
 		return
@@ -37,16 +36,16 @@ func main() {
 
 	select {
 	case <-sigChan:
-		fmt.Printf("\n[%s] 🛑 接收到中断信号，开始优雅关闭...\n", nodeID)
+		fmt.Printf("\n[%s] 🛑 接收到中断信号，开始优雅关闭...\n", hostname)
 		node.SetShutdown()
 
 		select {
 		case <-done:
-			fmt.Printf("[%s] ✅ 程序正常结束\n", nodeID)
+			fmt.Printf("[%s] ✅ 程序正常结束\n", hostname)
 		case <-time.After(10 * time.Second):
-			fmt.Printf("[%s] ⏰ 超时强制退出\n", nodeID)
+			fmt.Printf("[%s] ⏰ 超时强制退出\n", hostname)
 		}
 	case <-done:
-		fmt.Printf("[%s] ✅ 程序正常结束\n", nodeID)
+		fmt.Printf("[%s] ✅ 程序正常结束\n", hostname)
 	}
 }

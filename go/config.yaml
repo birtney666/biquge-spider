@@ -5,7 +5,7 @@ app:
 
 # 目标网站配置
 site:
-  base_url: "https://www.a9db770f8.lol"
+  base_url: "https://www.0d6f590b.sbs"
   book_url_template: "/book/{book_number}/"
   chapter_url_template: "/book/{book_number}/{chapter_num}.html"
 
@@ -18,8 +18,8 @@ database:
 
 # HTTP客户端配置
 http:
-  timeout_seconds: 15
-  max_idle_conns: 1000
+  timeout_seconds: 5
+  max_idle_conns: 10000
   max_idle_conns_per_host: 100
   max_conns_per_host: 200
   idle_conn_timeout_seconds: 90
